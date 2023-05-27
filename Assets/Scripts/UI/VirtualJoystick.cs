@@ -6,15 +6,18 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using UnityEngine.UIElements;
 
+[SelectionBase]
 public class VirtualJoystick : MonoBehaviour
 {
     public Vector3 JoystickInput => new Vector3(_knob.localPosition.x, 0, _knob.localPosition.y)  / _maxMagnitude;
+    public bool HasInput => _hasInput;
     
     [SerializeField] private RectTransform _parentRect;
     [SerializeField] private RectTransform _knob;
 
     private Vector2 _initPos;
     private float _maxMagnitude;
+    private bool _hasInput;
     
     public void Init()
     {
@@ -41,12 +44,14 @@ public class VirtualJoystick : MonoBehaviour
     private void PointerDown(Vector3 position)
     {
         _parentRect.position = position;
+        _hasInput = true;
     }
 
     private void PointerUp(Vector3 position)
     {
         _parentRect.position = _initPos;
         _knob.localPosition = Vector3.zero;
+        _hasInput = false;
     }
 
     private void Drag(Vector3 position)

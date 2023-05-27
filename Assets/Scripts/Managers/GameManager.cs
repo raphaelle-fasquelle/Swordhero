@@ -10,11 +10,13 @@ public class GameManager : MonoBehaviour
     public VirtualJoystick Joystick => _joystick;
     public PlayerController PlayerController => _playerController;
     public Camera Camera => _camera;
+    public EnemiesManager EnemiesManager => _enemiesManager;
 
     [SerializeField] private VirtualJoystick _joystick;
     [SerializeField] private PlayerController _playerController;
     [SerializeField] private Camera _camera;
-
+    [SerializeField] private EnemiesManager _enemiesManager;
+    
     private void Awake()
     {
         if (Instance == null)
@@ -35,6 +37,7 @@ public class GameManager : MonoBehaviour
     private void Init()
     {
         _joystick.Init();
+        _enemiesManager.Init();
         _playerController.Init();
     }
 }

@@ -438,7 +438,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3137283685161607772}
-  m_LocalRotation: {x: -0, y: -1, z: -0, w: 0.000003010034}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 2.3094544, y: 2.3094544, z: 2.3094544}
   m_Children:
@@ -511,8 +511,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _movementSpeed: 5
-  _rotationSpeed: 10
+  _rotationSpeed: 20
   _minimumMoveInput: 0.3
+  _detectionRange: 3.4
+  _attackSpeed: 7
+  _attackRange: 1.5
+  _attackDamage: 3
+  _animationHitDelay: 0.35
+  _endAttackCooldown: 0.5
   _animator: {fileID: 4278100186079492270}
 --- !u!1 &3512741108777884559
 GameObject:
