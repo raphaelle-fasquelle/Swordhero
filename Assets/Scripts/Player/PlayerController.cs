@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using JetBrains.Annotations;
 using UnityEngine;
 
 [SelectionBase]
@@ -36,6 +37,7 @@ public class PlayerController : MonoBehaviour
     private PlayerState _currentState;
     private EnemyController _targetEnemy;
     private bool _isStriking;
+    private Coroutine _attackCrt;
 
     private bool _hasTarget => _targetEnemy != null;
     
@@ -162,8 +164,9 @@ public class PlayerController : MonoBehaviour
 
     private void DealAttack()
     {
+        _animator.SetBool(_moveAnimationKey, false);
         _animator.SetTrigger(_attackAnimationKey);
-        StartCoroutine(AttackCrt());
+        _attackCrt = StartCoroutine(AttackCrt());
     }
 
     private IEnumerator AttackCrt()
@@ -172,6 +175,12 @@ public class PlayerController : MonoBehaviour
         yield return new WaitForSeconds(_animationHitDelay);
         _targetEnemy.TakeDamage(_attackDamage);
         yield return new WaitForSeconds(_endAttackCooldown);
+        _isStriking = false;
+    }
+
+    private void CancelAttack()
+    {
+        StopCoroutine(_attackCrt);
         _isStriking = false;
     }
     
@@ -187,6 +196,10 @@ public class PlayerController : MonoBehaviour
                 _animator.SetBool(_moveAnimationKey, false);
                 break;
             case PlayerState.Moving:
+                if (_currentState == PlayerState.Attacking && _isStriking)
+                {
+                    CancelAttack();
+                }
                 _currentState = PlayerState.Moving;
                 _animator.SetBool(_moveAnimationKey, true);
                 break;

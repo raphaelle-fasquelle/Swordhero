@@ -7,6 +7,8 @@ public class EnemiesManager : MonoBehaviour
 {
     private List<EnemyController> _enemies;
 
+    [SerializeField] private float _enemiesSpawnDelay;
+
     public void Init()
     {
         _enemies = transform.GetComponentsInChildren<EnemyController>().ToList();
