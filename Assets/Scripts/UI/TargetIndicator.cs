@@ -24,6 +24,10 @@ public class TargetIndicator : MonoBehaviour
         gameObject.SetActive(false);
     }
 
+    /// <summary>
+    /// Handling target follow even though enemies don't move in this version
+    /// </summary>
+    /// <returns></returns>
     private IEnumerator UpdatePositionCrt()
     {
         while (_target != null)

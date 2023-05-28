@@ -7,11 +7,16 @@ using Random = UnityEngine.Random;
 
 public class EnemiesManager : MonoBehaviour
 {
+    [Header("Spawn parameters")]
     [SerializeField] private int _enemiesCountOnStart;
     [SerializeField] private float _enemiesSpawnDelay;
-    [SerializeField] private EnemyController _enemyPrefab;
     [SerializeField] private Vector2 _minSpawnBounds;
     [SerializeField] private Vector2 _maxSpawnBounds;
+    [Space(10)]
+    [Header("External Links")]
+    [SerializeField] private EnemyController _enemyPrefab;
+    [Space(10)]
+    [Header("Internal Links")]
     [SerializeField] private Transform _enemiesInPoolParent;
     [SerializeField] private Transform _enemiesSpawnedParent;
     

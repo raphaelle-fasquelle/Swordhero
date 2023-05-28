@@ -510,15 +510,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 701061e9f25ed384ca1ba842504c95e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _movementSpeed: 4.5
   _rotationSpeed: 20
   _minimumMoveInput: 0.3
-  _detectionRange: 4.5
-  _detectionAngle: 130
-  _attackSpeed: 7
-  _attackRange: 1.5
+  _baseSpeed: 4.5
+  _baseAttackMovementSpeed: 7
+  _detectionRange: 3.2
+  _detectionAngle: 150
   _attackDamage: 4
-  _animationHitDelay: 0.35
   _endAttackCooldown: 0.5
   _animator: {fileID: 4278100186079492270}
   _playerWeapon: {fileID: 2566018110633546070}

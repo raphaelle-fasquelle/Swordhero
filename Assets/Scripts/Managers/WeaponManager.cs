@@ -8,6 +8,11 @@ public class WeaponManager : MonoBehaviour
 
     public void Init()
     {
-        GameManager.Instance.PlayerController.PlayerWeapon.SetWeapon(_weaponsData[Random.Range(0, _weaponsData.Length)]);
+        SwapWeapon(_weaponsData[Random.Range(0, _weaponsData.Length)]);
+    }
+
+    public void SwapWeapon(WeaponDataSo weapon)
+    {
+        GameManager.Instance.PlayerController.PlayerWeapon.SetWeapon(weapon);
     }
 }

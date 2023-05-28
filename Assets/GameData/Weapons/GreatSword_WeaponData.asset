@@ -13,10 +13,11 @@ MonoBehaviour:
   m_Name: GreatSword_WeaponData
   m_EditorClassIdentifier: 
   _id: great_sword
-  _timingToHitEffect: 0.35
-  _movementSpeed: 4.5
-  _attackMovementSpeed: 7
-  _attackRange: 1.5
+  _timingToHitEffect: 0.6
+  _endAttackCooldown: 0.5
+  _movementSpeedMultiplier: 0.6
+  _attackSpeedMultiplier: 1
+  _attackRange: 2.5
   _weaponObject: {fileID: 478356759475107179, guid: 17cf6e9fc28f3a544bc062d510f66f4a, type: 3}
   _displayName: Great Sword
   _icon: {fileID: 21300000, guid: c0ea4b6e528e7fe4aa6cdc94d38691a1, type: 3}

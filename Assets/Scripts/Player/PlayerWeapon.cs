@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlayerWeapon : MonoBehaviour
 {
+    public WeaponDataSo CurrentWeaponData => _currentWeaponData;
+
     [SerializeField] private Transform _weapondHolder;
 
     private WeaponDataSo _currentWeaponData;

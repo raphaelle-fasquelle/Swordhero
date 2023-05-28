@@ -13,10 +13,11 @@ MonoBehaviour:
   m_Name: CurvedSword_WeaponData
   m_EditorClassIdentifier: 
   _id: curved_sword
-  _timingToHitEffect: 0.35
-  _movementSpeed: 4.5
-  _attackMovementSpeed: 7
-  _attackRange: 1.5
+  _timingToHitEffect: 0.3
+  _endAttackCooldown: 0.25
+  _movementSpeedMultiplier: 1.4
+  _attackSpeedMultiplier: 2
+  _attackRange: 1.2
   _weaponObject: {fileID: 6937623146161485751, guid: 4d0814cafad460246890ec829fa7071d, type: 3}
   _displayName: Curved Sword
   _icon: {fileID: 21300000, guid: f2a6caf7b6afd7b4095cfac985b5869c, type: 3}

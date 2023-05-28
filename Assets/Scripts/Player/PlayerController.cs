@@ -17,18 +17,19 @@ public class PlayerController : MonoBehaviour
     }
 
     //MOVEMENT
-    [SerializeField] private  float _movementSpeed;
+    [Header("Movement")]
     [SerializeField] private  float _rotationSpeed;
     [SerializeField, Range(0f,1f)] private  float _minimumMoveInput = .3f;
+    [SerializeField] private float _baseSpeed;
     //ATACK
+    [Space(10)]
+    [Header("Attack")]
     [SerializeField] private float _detectionRange;
     [SerializeField] private float _detectionAngle;
-    [SerializeField] private float _attackSpeed;
-    [SerializeField] private float _attackRange; //TODO: MOVE TO WEAPONS DATA
-    [SerializeField] private int _attackDamage; //TODO: MOVE TO WEAPONS DATA
-    [SerializeField] private float _animationHitDelay; //TODO: MOVE TO WEAPONS DATA
-    [SerializeField] private float _endAttackCooldown;
+    [SerializeField] private int _attackDamage;
     //LINKS
+    [Space(10)]
+    [Header("Links")]
     [SerializeField] private Animator _animator;
     [SerializeField] private PlayerWeapon _playerWeapon;
     
@@ -114,7 +115,7 @@ public class PlayerController : MonoBehaviour
                     1);
                 transform.position = Vector3.MoveTowards(transform.position
                     , transform.position + _joystick.JoystickInput * (_movementCameraMultiplier * 10),
-                    Time.deltaTime * _movementSpeed);
+                    Time.deltaTime * _baseSpeed * _playerWeapon.CurrentWeaponData.MovementSpeedMultiplier);
             }
         }
         else
@@ -154,21 +155,23 @@ public class PlayerController : MonoBehaviour
         {
             Vector3 direction = (_targetEnemy.transform.position - transform.position).normalized;
             transform.forward = Vector3.RotateTowards(transform.forward,direction, _rotationSpeed * Time.deltaTime, 1);
-            if (IsInRange(_targetEnemy.transform.position, _attackRange))
+            if (IsInRange(_targetEnemy.transform.position, _playerWeapon.CurrentWeaponData.AttackRange))
             {
                 DealAttack();
             }
             else
             {
+                _animator.SetBool(_moveAnimationKey, true);
                 transform.position = Vector3.MoveTowards(transform.position
                     , _targetEnemy.transform.position - 1f * direction,
-                    Time.deltaTime * _attackSpeed);
+                    Time.deltaTime * _baseSpeed * _playerWeapon.CurrentWeaponData.MovementSpeedMultiplier);
             }
         }
     }
 
     private void DealAttack()
     {
+        SetAnimatorSpeed(_playerWeapon.CurrentWeaponData.MovementSpeedMultiplier);
         _animator.SetBool(_moveAnimationKey, false);
         _animator.SetTrigger(_attackAnimationKey);
         _attackCrt = StartCoroutine(AttackCrt());
@@ -177,9 +180,9 @@ public class PlayerController : MonoBehaviour
     private IEnumerator AttackCrt()
     {
         _isStriking = true;
-        yield return new WaitForSeconds(_animationHitDelay);
+        yield return new WaitForSeconds(_playerWeapon.CurrentWeaponData.TimingToHitEffect);
         _targetEnemy.TakeDamage(_attackDamage);
-        yield return new WaitForSeconds(_endAttackCooldown);
+        yield return new WaitForSeconds(_playerWeapon.CurrentWeaponData.EndAttackCooldown);
         _isStriking = false;
     }
 
@@ -199,23 +202,27 @@ public class PlayerController : MonoBehaviour
             case PlayerState.Idle:
                 _currentState = PlayerState.Idle;
                 _animator.SetBool(_moveAnimationKey, false);
+                SetAnimatorSpeed(1f);
                 break;
             case PlayerState.Moving:
                 if (_currentState == PlayerState.Attacking && _isStriking)
                 {
                     CancelAttack();
                 }
+                SetAnimatorSpeed(_playerWeapon.CurrentWeaponData.MovementSpeedMultiplier);
                 _currentState = PlayerState.Moving;
                 _animator.SetBool(_moveAnimationKey, true);
                 break;
             case PlayerState.Attacking:
-                if (_currentState == PlayerState.Idle)
-                {
-                    _animator.SetBool(_moveAnimationKey, false);
-                }
                 _currentState = PlayerState.Attacking;
                 break;
         }
+    }
+
+    private void SetAnimatorSpeed(float speed)
+    {
+        Debug.Log("Change animator speed to "+speed);
+        _animator.speed = speed;
     }
 
     private void CheckTarget()
@@ -243,9 +250,12 @@ public class PlayerController : MonoBehaviour
         Gizmos.DrawWireSphere(transform.position, _detectionRange);
         Gizmos.DrawLine(transform.position, transform.position + _detectionRange * (Quaternion.AngleAxis(_detectionAngle/2, Vector3.up) * transform.forward));
         Gizmos.DrawLine(transform.position, transform.position + _detectionRange * (Quaternion.AngleAxis(-_detectionAngle/2, Vector3.up) * transform.forward));
-        
-        Gizmos.color = Color.green;
-        Gizmos.DrawWireSphere(transform.position, _attackRange);
+
+        if (_playerWeapon.CurrentWeaponData != null)
+        {
+            Gizmos.color = Color.green;
+            Gizmos.DrawWireSphere(transform.position, _playerWeapon.CurrentWeaponData.AttackRange);
+        }
     }
     #endif
 }
