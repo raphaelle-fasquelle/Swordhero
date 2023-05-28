@@ -171,7 +171,7 @@ public class PlayerController : MonoBehaviour
 
     private void DealAttack()
     {
-        SetAnimatorSpeed(_playerWeapon.CurrentWeaponData.MovementSpeedMultiplier);
+        SetAnimatorSpeed(_playerWeapon.CurrentWeaponData.AttackSpeedMultiplier);
         _animator.SetBool(_moveAnimationKey, false);
         _animator.SetTrigger(_attackAnimationKey);
         _attackCrt = StartCoroutine(AttackCrt());

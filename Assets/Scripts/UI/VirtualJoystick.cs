@@ -27,7 +27,7 @@ public class VirtualJoystick : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && ! IsAboveUi())
         {
             PointerDown(Input.mousePosition);
         }
@@ -35,7 +35,7 @@ public class VirtualJoystick : MonoBehaviour
         {
             PointerUp(Input.mousePosition);
         }
-        if (Input.GetMouseButton(0))
+        if (Input.GetMouseButton(0) && ! IsAboveUi())
         {
             Drag(Input.mousePosition);
         }
@@ -59,4 +59,9 @@ public class VirtualJoystick : MonoBehaviour
         _knob.localPosition = Vector3.ClampMagnitude(position - _parentRect.position
             , _maxMagnitude);
     }
+    
+    private bool IsAboveUi() {
+        return EventSystem.current.currentSelectedGameObject;
+    }
+
 }

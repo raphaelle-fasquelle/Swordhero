@@ -11,6 +11,8 @@ public class WeaponDataSo : ScriptableObject
 
     public float EndAttackCooldown => _endAttackCooldown;
 
+    public float AttackSpeedMultiplier => _attackSpeedMultiplier;
+
     public float MovementSpeedMultiplier => _movementSpeedMultiplier;
     
     public float AttackRange => _attackRange;
@@ -27,6 +29,7 @@ public class WeaponDataSo : ScriptableObject
     [Header("Tweakables")]
     [SerializeField] private float _timingToHitEffect;
     [SerializeField] private float _endAttackCooldown;
+    [SerializeField] private float _attackSpeedMultiplier;
     [SerializeField] private float _movementSpeedMultiplier;
     [SerializeField] private float _attackRange;
     [Space(10)]
