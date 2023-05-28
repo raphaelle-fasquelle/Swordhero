@@ -1,0 +1,112 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Icons
+  m_EditorData:
+    serializedVersion: 2
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 1
+      compressionQuality: 100
+      maxTextureSize: 2048
+      textureCompression: 2
+      filterMode: 1
+      generateMipMaps: 0
+      readable: 0
+      crunchedCompression: 1
+      sRGB: 1
+    platformSettings:
+    - serializedVersion: 3
+      m_BuildTarget: DefaultTexturePlatform
+      m_MaxTextureSize: 2048
+      m_ResizeAlgorithm: 0
+      m_TextureFormat: -1
+      m_TextureCompression: 2
+      m_CompressionQuality: 100
+      m_CrunchedCompression: 1
+      m_AllowsAlphaSplitting: 0
+      m_Overridden: 0
+      m_AndroidETC2FallbackOverride: 0
+      m_ForceMaximumCompressionQuality_BC6H_BC7: 0
+    packingSettings:
+      serializedVersion: 2
+      padding: 4
+      blockOffset: 1
+      allowAlphaSplitting: 0
+      enableRotation: 1
+      enableTightPacking: 1
+    secondaryTextureSettings: {}
+    variantMultiplier: 1
+    packables:
+    - {fileID: 102900000, guid: 701f8d3b6112e8d4c80ce90b73cd22d4, type: 3}
+    totalSpriteSurfaceArea: 1032192
+    bindAsDefault: 1
+    isAtlasV2: 0
+    cachedData: {fileID: 0}
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites:
+  - {fileID: 21300000, guid: b9505e419a14dda4ea399d26d5955f94, type: 3}
+  - {fileID: 21300000, guid: 789e518168d493d4396ec984b1b5bcb3, type: 3}
+  - {fileID: 21300000, guid: 4ceb0a22206fea046be70ad00381bf62, type: 3}
+  - {fileID: 21300000, guid: 71bd4f726fd131046bf2bde8c724fefe, type: 3}
+  - {fileID: 21300000, guid: 4ebc70b29cf84034aa52eafdbca3951d, type: 3}
+  - {fileID: 21300000, guid: bbceae73b019590439ef5129744308a1, type: 3}
+  - {fileID: 21300000, guid: eab93444844589c40a72574411dd0120, type: 3}
+  - {fileID: 21300000, guid: 556def944fd02f54c98ac89a1fd817a7, type: 3}
+  - {fileID: 21300000, guid: d5ab6ea498c4d064781b7c052c6b6a2a, type: 3}
+  - {fileID: 21300000, guid: 0d047a16ca0627f4c8781f0168dcc35a, type: 3}
+  - {fileID: 21300000, guid: c278ec36abbc540489a08ba8765cd092, type: 3}
+  - {fileID: 21300000, guid: 865ffc765fa708b49aef6dc9e46d7a50, type: 3}
+  - {fileID: 21300000, guid: f2a6caf7b6afd7b4095cfac985b5869c, type: 3}
+  - {fileID: 21300000, guid: e67e11d800ebc144b9a0a05702c468e4, type: 3}
+  - {fileID: 21300000, guid: 469c2629c08b96944b6e1f3575449d4b, type: 3}
+  - {fileID: 21300000, guid: dc038b2ab22c65c4488779487c9dae97, type: 3}
+  - {fileID: 21300000, guid: 37665b2ddd98b1849afa610bb8214b9e, type: 3}
+  - {fileID: 21300000, guid: 1ff1175d56df9eb4f8cfa0ba429d9254, type: 3}
+  - {fileID: 21300000, guid: 68377f5ef74af2a448279951a5a833b9, type: 3}
+  - {fileID: 21300000, guid: c0ea4b6e528e7fe4aa6cdc94d38691a1, type: 3}
+  - {fileID: 21300000, guid: 54f8589e2ef2f7a4e875a51ae49b1e7b, type: 3}
+  - {fileID: 21300000, guid: 643c42ee4c957c44abcac1152d4794f1, type: 3}
+  - {fileID: 21300000, guid: cc2fc20f0f4c1264aa897c67dfcc4553, type: 3}
+  - {fileID: 21300000, guid: 158be32ff2ccad14e8831bd617f89478, type: 3}
+  - {fileID: 21300000, guid: a4b5f62f33b3e004e8aace652e009615, type: 3}
+  - {fileID: 21300000, guid: c03fbd6f990a8a54680cdd21777738e1, type: 3}
+  - {fileID: 21300000, guid: 74b95f8fcc76fcc4cb42a25e8d3cdbe0, type: 3}
+  - {fileID: 21300000, guid: 62a99ebf2f5cfe04da1d208b9e7817a9, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - SteelAxe
+  - BalancedSword [Paint]
+  - BerserkAxe
+  - FreeFolkAxe
+  - SandHealerStaff1
+  - SwampWarriorSpear
+  - VikingAxe3
+  - WoodcutterAxe
+  - DarkSword
+  - HunterKnife [Paint]
+  - SharpenedInfantrySword
+  - ButcherKnife
+  - Katana1 [Paint]
+  - GateCrusher
+  - HardwoodWand
+  - WoodenClub
+  - TwoHandedWoodenMace
+  - AssassinDagger [Paint]
+  - DestroyerAxe
+  - AriostinGreatsword
+  - BronzeDagger
+  - WarHammer
+  - Harpoon
+  - ManticoreSword
+  - WaterAdeptWand1
+  - OldPoleaxe
+  - LongHammer
+  - MountainSword [Paint]
+  m_RenderDataMap: {}
+  m_Tag: Icons
+  m_IsVariant: 0
