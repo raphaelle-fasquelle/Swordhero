@@ -96,7 +96,6 @@ public class PlayerController : MonoBehaviour
                 UpdateState(PlayerState.Attacking);
             }
         }
-        //TODO: IF IDLE AND ENEMY BECOMES IN RANGE, CHANGE STATE TO ATTACK
     }
 
     #region MOVING
