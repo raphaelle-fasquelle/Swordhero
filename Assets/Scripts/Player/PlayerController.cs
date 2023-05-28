@@ -105,7 +105,7 @@ public class PlayerController : MonoBehaviour
         {
             if (_currentState != PlayerState.Moving)
             {
-                StartMoving();
+                UpdateState(PlayerState.Moving);
             } 
             if (_joystick.JoystickInput.magnitude > _minimumMoveInput)
             {
@@ -124,11 +124,6 @@ public class PlayerController : MonoBehaviour
                 StopMoving();
             }
         }
-    }
-
-    private void StartMoving()
-    {
-        UpdateState(PlayerState.Moving);
     }
 
     private void StopMoving()
@@ -157,14 +152,14 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
+            Vector3 direction = (_targetEnemy.transform.position - transform.position).normalized;
+            transform.forward = Vector3.RotateTowards(transform.forward,direction, _rotationSpeed * Time.deltaTime, 1);
             if (IsInRange(_targetEnemy.transform.position, _attackRange))
             {
                 DealAttack();
             }
             else
             {
-                Vector3 direction = (_targetEnemy.transform.position - transform.position).normalized;
-                transform.forward = Vector3.RotateTowards(transform.forward,direction, _rotationSpeed * Time.deltaTime, 1);
                 transform.position = Vector3.MoveTowards(transform.position
                     , _targetEnemy.transform.position - 1f * direction,
                     Time.deltaTime * _attackSpeed);
@@ -248,13 +243,9 @@ public class PlayerController : MonoBehaviour
         Gizmos.DrawWireSphere(transform.position, _detectionRange);
         Gizmos.DrawLine(transform.position, transform.position + _detectionRange * (Quaternion.AngleAxis(_detectionAngle/2, Vector3.up) * transform.forward));
         Gizmos.DrawLine(transform.position, transform.position + _detectionRange * (Quaternion.AngleAxis(-_detectionAngle/2, Vector3.up) * transform.forward));
-        if (_hasTarget)
-        {
-            Gizmos.color = Color.green;
-            Gizmos.DrawWireSphere(transform.position, _attackRange);
-            Gizmos.color = Color.red;
-            Gizmos.DrawSphere(_targetEnemy.transform.position, .5f);
-        }
+        
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireSphere(transform.position, _attackRange);
     }
     #endif
 }
