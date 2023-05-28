@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using UnityEngine;
 
 [SelectionBase]
@@ -10,14 +11,24 @@ public class EnemyController : MonoBehaviour
     [SerializeField] private int _lifePoints;
     [SerializeField] private Animator _animator;
 
+    private EnemiesManager _enemiesManager;
+    
     private int _currentLifePoints;
     
     //ANIMATION KEYS
     private int _deathAnimationKey = Animator.StringToHash("Die");
     private int _damageAnimationKey = Animator.StringToHash("TakeDamage");
 
-    public void Init()
+    public void Init(EnemiesManager enemiesManager)
     {
+        _enemiesManager = enemiesManager;
+    }
+
+    public void Spawn(Vector3 position)
+    {
+        gameObject.SetActive(true);
+        transform.position = position;
+        transform.localScale = Vector3.one;
         _currentLifePoints = _lifePoints;
     }
 
@@ -38,7 +49,19 @@ public class EnemyController : MonoBehaviour
         if (_currentLifePoints <= 0)
         {
             _currentLifePoints = 0;
-            _animator.SetTrigger(_deathAnimationKey);
+            Die();
         }
+    }
+
+    private void Die()
+    {
+        _animator.SetTrigger(_deathAnimationKey);
+        Sequence sequence = DOTween.Sequence();
+        sequence.AppendInterval(1.5f);
+        sequence.Append(transform.DOScale(0, .3f).SetEase(Ease.InBack));
+        sequence.AppendCallback(() =>
+        {
+            _enemiesManager.ReturnToPool(this);
+        });
     }
 }
