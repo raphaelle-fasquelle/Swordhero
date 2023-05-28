@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -20,6 +21,11 @@ public class GameManager : MonoBehaviour
     [SerializeField] private EnemiesManager _enemiesManager;
     [SerializeField] private TargetIndicator _targetIndicator;
     [SerializeField] private WeaponManager _weaponManager;
+
+    public void ResetGame()
+    {
+        SceneManager.LoadScene(0);
+    }
     
     private void Awake()
     {
