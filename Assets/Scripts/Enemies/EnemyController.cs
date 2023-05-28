@@ -26,6 +26,11 @@ public class EnemyController : MonoBehaviour
         return Vector3.SqrMagnitude(position - transform.position);
     }
 
+    public bool IsInCone(Vector3 position, Vector3 coneDirection, float coneAngle)
+    {
+        return Vector3.Angle(coneDirection, transform.position - position) <= coneAngle / 2f;
+    }
+
     public void TakeDamage(int damage)
     {
         _currentLifePoints -= damage;

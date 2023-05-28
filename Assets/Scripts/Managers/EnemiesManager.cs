@@ -18,24 +18,22 @@ public class EnemiesManager : MonoBehaviour
         }
     }
 
-    public EnemyController GetClosestAliveEnemy(Vector3 position)
+    public EnemyController GetClosestAliveEnemyInConeRange(Transform referenceTransform, float coneAngle, float distance)
     {
-        EnemyController closestEnemy = _enemies.FirstOrDefault(enemy => enemy.IsAlive);
-        if (closestEnemy == null)
+        EnemyController[] matchingEnemies = _enemies.Where(enemy =>
+            enemy.IsAlive 
+            && enemy.IsInCone(referenceTransform.position, referenceTransform.forward, coneAngle)
+            && Vector3.Distance(referenceTransform.position, enemy.transform.position) < distance).ToArray();
+        if (matchingEnemies.Length == 0) return null;
+        EnemyController closestEnemy = matchingEnemies[0];
+        foreach (EnemyController enemyController in matchingEnemies)
         {
-            Debug.Log("No more enemies alive");
-        }
-        foreach (EnemyController enemyController in _enemies)
-        {
-            if (enemyController.IsAlive)
+            if (enemyController.SqrDistanceToPosition(referenceTransform.position) <
+                closestEnemy.SqrDistanceToPosition(referenceTransform.position))
             {
-                if (enemyController.SqrDistanceToPosition(position) < closestEnemy.SqrDistanceToPosition(position))
-                {
-                    closestEnemy = enemyController;
-                }
+                closestEnemy = enemyController;
             }
         }
-
         return closestEnemy;
     }
 }

@@ -11,11 +11,13 @@ public class GameManager : MonoBehaviour
     public PlayerController PlayerController => _playerController;
     public Camera Camera => _camera;
     public EnemiesManager EnemiesManager => _enemiesManager;
+    public TargetIndicator TargetIndicator => _targetIndicator;
 
     [SerializeField] private VirtualJoystick _joystick;
     [SerializeField] private PlayerController _playerController;
     [SerializeField] private Camera _camera;
     [SerializeField] private EnemiesManager _enemiesManager;
+    [SerializeField] private TargetIndicator _targetIndicator;
     
     private void Awake()
     {

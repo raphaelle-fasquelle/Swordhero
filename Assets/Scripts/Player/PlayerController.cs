@@ -20,6 +20,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField, Range(0f,1f)] private  float _minimumMoveInput = .3f;
     //ATACK
     [SerializeField] private float _detectionRange;
+    [SerializeField] private float _detectionAngle;
     [SerializeField] private float _attackSpeed;
     [SerializeField] private float _attackRange; //TODO: MOVE TO WEAPONS DATA
     [SerializeField] private int _attackDamage; //TODO: MOVE TO WEAPONS DATA
@@ -31,6 +32,7 @@ public class PlayerController : MonoBehaviour
     //EXTERNAL LINKS
     private VirtualJoystick _joystick;
     private EnemiesManager _enemiesManager;
+    private TargetIndicator _targetIndicator;
     
     //INTERNAL PARAMETERS
     private float _movementCameraMultiplier;
@@ -59,9 +61,14 @@ public class PlayerController : MonoBehaviour
         {
             throw new Exception("MAKE SURE ENEMIES MANAGER EXISTS");
         }
+        if (GameManager.Instance.TargetIndicator == null)
+        {
+            throw new Exception("MAKE SURE TARGET INDICATOR EXISTS");
+        }
         
         _joystick = GameManager.Instance.Joystick;
         _enemiesManager = GameManager.Instance.EnemiesManager;
+        _targetIndicator = GameManager.Instance.TargetIndicator;
         _movementCameraMultiplier = GameManager.Instance.Camera.transform.forward.z > 0 ? 1 : -1;
 
         _currentState = PlayerState.Idle;
@@ -81,7 +88,7 @@ public class PlayerController : MonoBehaviour
 
         if (_currentState == PlayerState.Idle)
         {
-            if (_targetEnemy != null)
+            if (_hasTarget)
             {
                 UpdateState(PlayerState.Attacking);
             }
@@ -142,6 +149,7 @@ public class PlayerController : MonoBehaviour
         if(_isStriking) return;
         if (!_targetEnemy.IsAlive)
         {
+            _targetIndicator.Disable();
             _targetEnemy = null;
             UpdateState(PlayerState.Idle);
         }
@@ -215,21 +223,14 @@ public class PlayerController : MonoBehaviour
 
     private void CheckTarget()
     {
-        if (_targetEnemy == null)
+        _targetEnemy = _enemiesManager.GetClosestAliveEnemyInConeRange(transform, _detectionAngle, _detectionRange);
+        if (_hasTarget)
         {
-            _targetEnemy = _enemiesManager.GetClosestAliveEnemy(transform.position);
-            if (_targetEnemy != null && !IsInRange(_targetEnemy.transform.position, _detectionRange))
-            {
-                _targetEnemy = null;
-            }
+            _targetIndicator.SetTarget(_targetEnemy.transform);
         }
         else
         {
-            if (!IsInRange(_targetEnemy.transform.position, _detectionRange))
-            {
-                _targetEnemy = null;
-                CheckTarget();
-            }
+            _targetIndicator.Disable();
         }
     }
 
@@ -243,7 +244,9 @@ public class PlayerController : MonoBehaviour
     {
         Gizmos.color = Color.blue;
         Gizmos.DrawWireSphere(transform.position, _detectionRange);
-        if (_targetEnemy != null)
+        Gizmos.DrawLine(transform.position, transform.position + _detectionRange * (Quaternion.AngleAxis(_detectionAngle/2, Vector3.up) * transform.forward));
+        Gizmos.DrawLine(transform.position, transform.position + _detectionRange * (Quaternion.AngleAxis(-_detectionAngle/2, Vector3.up) * transform.forward));
+        if (_hasTarget)
         {
             Gizmos.color = Color.green;
             Gizmos.DrawWireSphere(transform.position, _attackRange);
