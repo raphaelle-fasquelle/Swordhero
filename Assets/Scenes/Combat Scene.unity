@@ -1954,6 +1954,7 @@ MonoBehaviour:
   _camera: {fileID: 1459999130}
   _enemiesManager: {fileID: 1519515847}
   _targetIndicator: {fileID: 7144086383880699768}
+  _weaponManager: {fileID: 1126739234}
 --- !u!4 &1076502978
 Transform:
   m_ObjectHideFlags: 0
@@ -1967,6 +1968,53 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1126739233
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1126739235}
+  - component: {fileID: 1126739234}
+  m_Layer: 0
+  m_Name: WeaponManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1126739234
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1126739233}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 799f42dc20242854e96d29dfd28a8e95, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _weaponsData:
+  - {fileID: 11400000, guid: b472a3e98f809c648896b0e1b02df621, type: 2}
+  - {fileID: 11400000, guid: a93d58aae79096e4691ba571e2e8213d, type: 2}
+  - {fileID: 11400000, guid: 06eb0e98ef5c1b649b07ed5361431a18, type: 2}
+--- !u!4 &1126739235
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1126739233}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -1.8635077, y: -3.3688908, z: -5.2570305}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1205710655
 PrefabInstance:

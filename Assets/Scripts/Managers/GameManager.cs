@@ -12,12 +12,14 @@ public class GameManager : MonoBehaviour
     public Camera Camera => _camera;
     public EnemiesManager EnemiesManager => _enemiesManager;
     public TargetIndicator TargetIndicator => _targetIndicator;
+    public WeaponManager WeaponManager => _weaponManager;
 
     [SerializeField] private VirtualJoystick _joystick;
     [SerializeField] private PlayerController _playerController;
     [SerializeField] private Camera _camera;
     [SerializeField] private EnemiesManager _enemiesManager;
     [SerializeField] private TargetIndicator _targetIndicator;
+    [SerializeField] private WeaponManager _weaponManager;
     
     private void Awake()
     {
@@ -39,6 +41,7 @@ public class GameManager : MonoBehaviour
     private void Init()
     {
         _joystick.Init();
+        _weaponManager.Init();
         _enemiesManager.Init();
         _playerController.Init();
     }

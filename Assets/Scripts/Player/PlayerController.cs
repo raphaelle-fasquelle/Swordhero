@@ -7,13 +7,15 @@ using UnityEngine;
 [SelectionBase]
 public class PlayerController : MonoBehaviour
 {
+    public PlayerWeapon PlayerWeapon => _playerWeapon;
+
     private enum PlayerState
     {
         Idle,
         Attacking,
         Moving,
     }
-    
+
     //MOVEMENT
     [SerializeField] private  float _movementSpeed;
     [SerializeField] private  float _rotationSpeed;
@@ -28,6 +30,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float _endAttackCooldown;
     //LINKS
     [SerializeField] private Animator _animator;
+    [SerializeField] private PlayerWeapon _playerWeapon;
     
     //EXTERNAL LINKS
     private VirtualJoystick _joystick;
