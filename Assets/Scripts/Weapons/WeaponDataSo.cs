@@ -23,6 +23,12 @@ public class WeaponDataSo : ScriptableObject
 
     public Sprite Icon => _icon;
 
+    public float ShakeAmplitude => _shakeAmplitude;
+
+    public float ShakeIntensity => _shakeIntensity;
+
+    public float ShakeDuration => _shakeDuration;
+
     [Header("Setup")]
     [SerializeField] private string _id;
     [Space(10)]
@@ -32,6 +38,11 @@ public class WeaponDataSo : ScriptableObject
     [SerializeField] private float _attackSpeedMultiplier;
     [SerializeField] private float _movementSpeedMultiplier;
     [SerializeField] private float _attackRange;
+    [Space(10)]
+    [Header("Feedback Parameters")]
+    [SerializeField] private float _shakeAmplitude;
+    [SerializeField] private float _shakeIntensity;
+    [SerializeField] private float _shakeDuration;
     [Space(10)]
     [Header("Links")]
     [SerializeField] private GameObject _weaponObject;

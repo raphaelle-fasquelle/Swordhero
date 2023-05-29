@@ -37,6 +37,7 @@ public class PlayerController : MonoBehaviour
     private VirtualJoystick _joystick;
     private EnemiesManager _enemiesManager;
     private TargetIndicator _targetIndicator;
+    private CameraManager _cameraManager;
     
     //INTERNAL PARAMETERS
     private float _movementCameraMultiplier;
@@ -46,11 +47,7 @@ public class PlayerController : MonoBehaviour
     private Coroutine _attackCrt;
     
     //WEAPON SHORTCUTS
-    private float _attackRange => GameManager.Instance.WeaponManager.CurrentWeapon.AttackRange;
-    private float _attackSpeedMultiplier => GameManager.Instance.WeaponManager.CurrentWeapon.AttackSpeedMultiplier;
-    private float _movementSpeedMultiplier => GameManager.Instance.WeaponManager.CurrentWeapon.MovementSpeedMultiplier;
-    private float _endAttackCooldown => GameManager.Instance.WeaponManager.CurrentWeapon.EndAttackCooldown;
-    private float _hitTiming => GameManager.Instance.WeaponManager.CurrentWeapon.TimingToHitEffect;
+    private WeaponDataSo _currentWeapon => GameManager.Instance.WeaponManager.CurrentWeapon;
 
     private bool _hasTarget => _targetEnemy != null;
     
@@ -60,26 +57,10 @@ public class PlayerController : MonoBehaviour
     
     public void Init()
     {
-        if (GameManager.Instance.Joystick == null)
-        {
-            throw new Exception("MAKE SURE VIRTUAL JOYSTICK EXISTS");
-        }
-        if (GameManager.Instance.Camera == null)
-        {
-            throw new Exception("MAKE SURE CAMERA EXISTS");
-        }
-        if (GameManager.Instance.EnemiesManager == null)
-        {
-            throw new Exception("MAKE SURE ENEMIES MANAGER EXISTS");
-        }
-        if (GameManager.Instance.TargetIndicator == null)
-        {
-            throw new Exception("MAKE SURE TARGET INDICATOR EXISTS");
-        }
-        
         _joystick = GameManager.Instance.Joystick;
         _enemiesManager = GameManager.Instance.EnemiesManager;
         _targetIndicator = GameManager.Instance.TargetIndicator;
+        _cameraManager = GameManager.Instance.CameraManager;
         _movementCameraMultiplier = GameManager.Instance.Camera.transform.forward.z > 0 ? 1 : -1;
 
         _currentState = PlayerState.Idle;
@@ -122,7 +103,7 @@ public class PlayerController : MonoBehaviour
                     1);
                 transform.position = Vector3.MoveTowards(transform.position
                     , transform.position + _joystick.JoystickInput * (_movementCameraMultiplier * 10),
-                    Time.deltaTime * _baseSpeed * _movementSpeedMultiplier);
+                    Time.deltaTime * _baseSpeed * _currentWeapon.MovementSpeedMultiplier);
             }
         }
         else
@@ -162,7 +143,7 @@ public class PlayerController : MonoBehaviour
         {
             Vector3 direction = (_targetEnemy.transform.position - transform.position).normalized;
             transform.forward = Vector3.RotateTowards(transform.forward,direction, _rotationSpeed * Time.deltaTime, 1);
-            if (IsInRange(_targetEnemy.transform.position, _attackRange))
+            if (IsInRange(_targetEnemy.transform.position, _currentWeapon.AttackRange))
             {
                 DealAttack();
             }
@@ -171,14 +152,14 @@ public class PlayerController : MonoBehaviour
                 _animator.SetBool(_moveAnimationKey, true);
                 transform.position = Vector3.MoveTowards(transform.position
                     , _targetEnemy.transform.position - 1f * direction,
-                    Time.deltaTime * _baseSpeed * _movementSpeedMultiplier);
+                    Time.deltaTime * _baseSpeed * _currentWeapon.MovementSpeedMultiplier);
             }
         }
     }
 
     private void DealAttack()
     {
-        SetAnimatorSpeed(_attackSpeedMultiplier);
+        SetAnimatorSpeed(_currentWeapon.AttackSpeedMultiplier);
         _animator.SetBool(_moveAnimationKey, false);
         _animator.SetTrigger(_attackAnimationKey);
         _attackCrt = StartCoroutine(AttackCrt());
@@ -187,10 +168,16 @@ public class PlayerController : MonoBehaviour
     private IEnumerator AttackCrt()
     {
         _isStriking = true;
-        yield return new WaitForSeconds(_hitTiming);
-        _targetEnemy.TakeDamage(_attackDamage);
-        yield return new WaitForSeconds(_endAttackCooldown);
+        yield return new WaitForSeconds(_currentWeapon.TimingToHitEffect);
+        DoHit();
+        yield return new WaitForSeconds(_currentWeapon.EndAttackCooldown);
         _isStriking = false;
+    }
+
+    private void DoHit()
+    {
+        _targetEnemy.TakeDamage(_attackDamage);
+        _cameraManager.DoShake(_currentWeapon.ShakeAmplitude,_currentWeapon.ShakeIntensity,_currentWeapon.ShakeDuration);
     }
 
     private void CancelAttack()
@@ -216,7 +203,7 @@ public class PlayerController : MonoBehaviour
                 {
                     CancelAttack();
                 }
-                SetAnimatorSpeed(_movementSpeedMultiplier);
+                SetAnimatorSpeed(_currentWeapon.MovementSpeedMultiplier);
                 _currentState = PlayerState.Moving;
                 _animator.SetBool(_moveAnimationKey, true);
                 break;
@@ -234,7 +221,7 @@ public class PlayerController : MonoBehaviour
 
     private void CheckTarget()
     {
-        _targetEnemy = _enemiesManager.GetClosestAliveEnemyInConeRange(transform, _detectionAngle, _attackRange);
+        _targetEnemy = _enemiesManager.GetClosestAliveEnemyInConeRange(transform, _detectionAngle, _currentWeapon.AttackRange);
         if (_hasTarget)
         {
             _targetIndicator.SetTarget(_targetEnemy.transform);
@@ -261,7 +248,7 @@ public class PlayerController : MonoBehaviour
         if (GameManager.Instance != null && GameManager.Instance.WeaponManager.CurrentWeapon != null)
         {
             Gizmos.color = Color.green;
-            Gizmos.DrawWireSphere(transform.position, _attackRange);
+            Gizmos.DrawWireSphere(transform.position, _currentWeapon.AttackRange);
         }
     }
     #endif

@@ -15,12 +15,15 @@ public class GameManager : MonoBehaviour
     public TargetIndicator TargetIndicator => _targetIndicator;
     public WeaponManager WeaponManager => _weaponManager;
 
+    public CameraManager CameraManager => _cameraManager;
+
     [SerializeField] private VirtualJoystick _joystick;
     [SerializeField] private PlayerController _playerController;
     [SerializeField] private Camera _camera;
     [SerializeField] private EnemiesManager _enemiesManager;
     [SerializeField] private TargetIndicator _targetIndicator;
     [SerializeField] private WeaponManager _weaponManager;
+    [SerializeField] private CameraManager _cameraManager;
 
     public void ResetGame()
     {
@@ -47,6 +50,7 @@ public class GameManager : MonoBehaviour
 
     private void Init()
     {
+        _cameraManager.Init();
         _joystick.Init();
         _weaponManager.Init();
         _enemiesManager.Init();
