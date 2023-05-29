@@ -44,6 +44,13 @@ public class PlayerController : MonoBehaviour
     private EnemyController _targetEnemy;
     private bool _isStriking;
     private Coroutine _attackCrt;
+    
+    //WEAPON SHORTCUTS
+    private float _attackRange => _playerWeapon.CurrentWeaponData.AttackRange;
+    private float _attackSpeedMultiplier => _playerWeapon.CurrentWeaponData.AttackSpeedMultiplier;
+    private float _movementSpeedMultiplier => _playerWeapon.CurrentWeaponData.MovementSpeedMultiplier;
+    private float _endAttackCooldown => _playerWeapon.CurrentWeaponData.EndAttackCooldown;
+    private float _hitTiming => _playerWeapon.CurrentWeaponData.TimingToHitEffect;
 
     private bool _hasTarget => _targetEnemy != null;
     
@@ -115,7 +122,7 @@ public class PlayerController : MonoBehaviour
                     1);
                 transform.position = Vector3.MoveTowards(transform.position
                     , transform.position + _joystick.JoystickInput * (_movementCameraMultiplier * 10),
-                    Time.deltaTime * _baseSpeed * _playerWeapon.CurrentWeaponData.MovementSpeedMultiplier);
+                    Time.deltaTime * _baseSpeed * _movementSpeedMultiplier);
             }
         }
         else
@@ -155,7 +162,7 @@ public class PlayerController : MonoBehaviour
         {
             Vector3 direction = (_targetEnemy.transform.position - transform.position).normalized;
             transform.forward = Vector3.RotateTowards(transform.forward,direction, _rotationSpeed * Time.deltaTime, 1);
-            if (IsInRange(_targetEnemy.transform.position, _playerWeapon.CurrentWeaponData.AttackRange))
+            if (IsInRange(_targetEnemy.transform.position, _attackRange))
             {
                 DealAttack();
             }
@@ -164,14 +171,14 @@ public class PlayerController : MonoBehaviour
                 _animator.SetBool(_moveAnimationKey, true);
                 transform.position = Vector3.MoveTowards(transform.position
                     , _targetEnemy.transform.position - 1f * direction,
-                    Time.deltaTime * _baseSpeed * _playerWeapon.CurrentWeaponData.MovementSpeedMultiplier);
+                    Time.deltaTime * _baseSpeed * _movementSpeedMultiplier);
             }
         }
     }
 
     private void DealAttack()
     {
-        SetAnimatorSpeed(_playerWeapon.CurrentWeaponData.AttackSpeedMultiplier);
+        SetAnimatorSpeed(_attackSpeedMultiplier);
         _animator.SetBool(_moveAnimationKey, false);
         _animator.SetTrigger(_attackAnimationKey);
         _attackCrt = StartCoroutine(AttackCrt());
@@ -180,9 +187,9 @@ public class PlayerController : MonoBehaviour
     private IEnumerator AttackCrt()
     {
         _isStriking = true;
-        yield return new WaitForSeconds(_playerWeapon.CurrentWeaponData.TimingToHitEffect);
+        yield return new WaitForSeconds(_hitTiming);
         _targetEnemy.TakeDamage(_attackDamage);
-        yield return new WaitForSeconds(_playerWeapon.CurrentWeaponData.EndAttackCooldown);
+        yield return new WaitForSeconds(_endAttackCooldown);
         _isStriking = false;
     }
 
@@ -209,7 +216,7 @@ public class PlayerController : MonoBehaviour
                 {
                     CancelAttack();
                 }
-                SetAnimatorSpeed(_playerWeapon.CurrentWeaponData.MovementSpeedMultiplier);
+                SetAnimatorSpeed(_movementSpeedMultiplier);
                 _currentState = PlayerState.Moving;
                 _animator.SetBool(_moveAnimationKey, true);
                 break;
@@ -227,7 +234,7 @@ public class PlayerController : MonoBehaviour
 
     private void CheckTarget()
     {
-        _targetEnemy = _enemiesManager.GetClosestAliveEnemyInConeRange(transform, _detectionAngle, _detectionRange);
+        _targetEnemy = _enemiesManager.GetClosestAliveEnemyInConeRange(transform, _detectionAngle, _attackRange);
         if (_hasTarget)
         {
             _targetIndicator.SetTarget(_targetEnemy.transform);
@@ -254,7 +261,7 @@ public class PlayerController : MonoBehaviour
         if (_playerWeapon.CurrentWeaponData != null)
         {
             Gizmos.color = Color.green;
-            Gizmos.DrawWireSphere(transform.position, _playerWeapon.CurrentWeaponData.AttackRange);
+            Gizmos.DrawWireSphere(transform.position, _attackRange);
         }
     }
     #endif

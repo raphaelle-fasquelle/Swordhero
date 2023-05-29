@@ -16,7 +16,7 @@ MonoBehaviour:
   _timingToHitEffect: 0.6
   _endAttackCooldown: 0.5
   _attackSpeedMultiplier: 1
-  _movementSpeedMultiplier: 0.6
+  _movementSpeedMultiplier: 0.9
   _attackRange: 2.5
   _weaponObject: {fileID: 478356759475107179, guid: 17cf6e9fc28f3a544bc062d510f66f4a, type: 3}
   _displayName: Great Sword

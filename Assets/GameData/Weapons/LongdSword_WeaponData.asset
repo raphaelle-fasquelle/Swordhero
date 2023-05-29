@@ -15,8 +15,8 @@ MonoBehaviour:
   _id: long_sword
   _timingToHitEffect: 0.4
   _endAttackCooldown: 0.33
-  _movementSpeedMultiplier: 1
   _attackSpeedMultiplier: 1.5
+  _movementSpeedMultiplier: 1.2
   _attackRange: 2
   _weaponObject: {fileID: 15448191510330147, guid: bac79aa2a0057e5429a664d3f336da3d, type: 3}
   _displayName: Long Sword

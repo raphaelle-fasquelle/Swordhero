@@ -2210,8 +2210,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _weaponsData:
   - {fileID: 11400000, guid: b472a3e98f809c648896b0e1b02df621, type: 2}
-  - {fileID: 11400000, guid: a93d58aae79096e4691ba571e2e8213d, type: 2}
   - {fileID: 11400000, guid: 06eb0e98ef5c1b649b07ed5361431a18, type: 2}
+  - {fileID: 11400000, guid: a93d58aae79096e4691ba571e2e8213d, type: 2}
   _weaponsWidgetUI: {fileID: 981490360}
 --- !u!4 &1126739235
 Transform:
