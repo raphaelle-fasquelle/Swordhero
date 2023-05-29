@@ -2129,7 +2129,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee391673703eefd49b9caca0a013dbd9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _weaponUI: {fileID: 8229008324586717745, guid: 036fd5df90486224e9b8cd9a3cf7e875, type: 3}
+  weaponButtonUI: {fileID: 8229008324586717745, guid: 036fd5df90486224e9b8cd9a3cf7e875, type: 3}
 --- !u!1 &1076502976
 GameObject:
   m_ObjectHideFlags: 0

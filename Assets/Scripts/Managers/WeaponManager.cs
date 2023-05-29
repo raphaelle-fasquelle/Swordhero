@@ -4,17 +4,27 @@ using UnityEngine;
 
 public class WeaponManager : MonoBehaviour
 {
+    public WeaponDataSo CurrentWeapon => _currentWeapon;
+
     [SerializeField] private WeaponDataSo[] _weaponsData;
     [SerializeField] private WeaponsWidgetUI _weaponsWidgetUI;
 
+    private WeaponDataSo _currentWeapon;
+    
     public void Init()
     {
-        SwapWeapon(_weaponsData[Random.Range(0, _weaponsData.Length)]);
-        _weaponsWidgetUI.Init(_weaponsData, SwapWeapon);
+        _weaponsWidgetUI.Init(_weaponsData);
+        _weaponsWidgetUI.OnWeaponButtonSelected += SelectWeapon;
+        SelectWeapon(_weaponsData[Random.Range(0, _weaponsData.Length)]);
     }
 
-    public void SwapWeapon(WeaponDataSo weapon)
+    private void SelectWeapon(WeaponDataSo weapon)
     {
-        GameManager.Instance.PlayerController.PlayerWeapon.SetWeapon(weapon);
+        if (_currentWeapon != weapon)
+        {
+            _weaponsWidgetUI.SetSelectedWeapon(weapon);
+            GameManager.Instance.PlayerController.PlayerWeapon.SetWeapon(weapon);
+            _currentWeapon = weapon;
+        }
     }
 }

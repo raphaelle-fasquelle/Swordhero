@@ -4,11 +4,8 @@ using UnityEngine;
 
 public class PlayerWeapon : MonoBehaviour
 {
-    public WeaponDataSo CurrentWeaponData => _currentWeaponData;
-
     [SerializeField] private Transform _weapondHolder;
 
-    private WeaponDataSo _currentWeaponData;
     private GameObject _spawnedWeapon;
     
     public void SetWeapon(WeaponDataSo weaponDataSo)
@@ -20,6 +17,5 @@ public class PlayerWeapon : MonoBehaviour
         }
 
         _spawnedWeapon = Instantiate(weaponDataSo.WeaponObject, _weapondHolder);
-        _currentWeaponData = weaponDataSo;
     }
 }

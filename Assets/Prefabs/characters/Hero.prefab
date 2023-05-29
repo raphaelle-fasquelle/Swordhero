@@ -511,13 +511,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _rotationSpeed: 20
-  _minimumMoveInput: 0.3
+  _minimumMoveInput: 0.25
   _baseSpeed: 4.5
-  _baseAttackMovementSpeed: 7
   _detectionRange: 3.2
   _detectionAngle: 150
   _attackDamage: 4
-  _endAttackCooldown: 0.5
   _animator: {fileID: 4278100186079492270}
   _playerWeapon: {fileID: 2566018110633546070}
 --- !u!114 &2566018110633546070

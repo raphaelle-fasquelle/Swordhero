@@ -46,11 +46,11 @@ public class PlayerController : MonoBehaviour
     private Coroutine _attackCrt;
     
     //WEAPON SHORTCUTS
-    private float _attackRange => _playerWeapon.CurrentWeaponData.AttackRange;
-    private float _attackSpeedMultiplier => _playerWeapon.CurrentWeaponData.AttackSpeedMultiplier;
-    private float _movementSpeedMultiplier => _playerWeapon.CurrentWeaponData.MovementSpeedMultiplier;
-    private float _endAttackCooldown => _playerWeapon.CurrentWeaponData.EndAttackCooldown;
-    private float _hitTiming => _playerWeapon.CurrentWeaponData.TimingToHitEffect;
+    private float _attackRange => GameManager.Instance.WeaponManager.CurrentWeapon.AttackRange;
+    private float _attackSpeedMultiplier => GameManager.Instance.WeaponManager.CurrentWeapon.AttackSpeedMultiplier;
+    private float _movementSpeedMultiplier => GameManager.Instance.WeaponManager.CurrentWeapon.MovementSpeedMultiplier;
+    private float _endAttackCooldown => GameManager.Instance.WeaponManager.CurrentWeapon.EndAttackCooldown;
+    private float _hitTiming => GameManager.Instance.WeaponManager.CurrentWeapon.TimingToHitEffect;
 
     private bool _hasTarget => _targetEnemy != null;
     
@@ -258,7 +258,7 @@ public class PlayerController : MonoBehaviour
         Gizmos.DrawLine(transform.position, transform.position + _detectionRange * (Quaternion.AngleAxis(_detectionAngle/2, Vector3.up) * transform.forward));
         Gizmos.DrawLine(transform.position, transform.position + _detectionRange * (Quaternion.AngleAxis(-_detectionAngle/2, Vector3.up) * transform.forward));
 
-        if (_playerWeapon.CurrentWeaponData != null)
+        if (GameManager.Instance != null && GameManager.Instance.WeaponManager.CurrentWeapon != null)
         {
             Gizmos.color = Color.green;
             Gizmos.DrawWireSphere(transform.position, _attackRange);

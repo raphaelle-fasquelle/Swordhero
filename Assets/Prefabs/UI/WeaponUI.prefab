@@ -138,6 +138,7 @@ MonoBehaviour:
   _icon: {fileID: 5773495589478733856}
   _displayedName: {fileID: 2191303184300177822}
   _button: {fileID: 2191303183728288968}
+  _background: {fileID: 2191303183728288969}
 --- !u!1 &2191303184300177820
 GameObject:
   m_ObjectHideFlags: 0

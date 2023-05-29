@@ -2,17 +2,37 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class WeaponsWidgetUI : MonoBehaviour
 {
-    [SerializeField] private WeaponUI _weaponUI;
+    public Action<WeaponDataSo> OnWeaponButtonSelected;
+    
+    [SerializeField] private WeaponButtonUI weaponButtonUI;
 
-    public void Init(WeaponDataSo[] weapons, Action<WeaponDataSo> selectionCallback)
+    private WeaponButtonUI[] _weaponButtons;
+    
+    public void Init(WeaponDataSo[] weapons)
     {
-        foreach (var weaponDataSo in weapons)
+        _weaponButtons = new WeaponButtonUI[weapons.Length];
+        for (var index = 0; index < weapons.Length; index++)
         {
-            WeaponUI weaponUI = Instantiate(_weaponUI, transform);
-            weaponUI.Setup(weaponDataSo, selectionCallback);
+            _weaponButtons[index] = Instantiate(weaponButtonUI, transform);
+            _weaponButtons[index].Setup(weapons[index]);
+            _weaponButtons[index].OnWeaponButtonSelected += OnWeaponButtonClicked;
         }
+    }
+
+    public void SetSelectedWeapon(WeaponDataSo weapon)
+    {
+        foreach (var weaponButton in _weaponButtons)
+        {
+            weaponButton.SetSelected(weapon);
+        }
+    }
+
+    private void OnWeaponButtonClicked(WeaponDataSo weaponDataSo)
+    {
+        OnWeaponButtonSelected.Invoke(weaponDataSo);
     }
 }
