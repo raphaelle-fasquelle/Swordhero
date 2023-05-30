@@ -29,6 +29,8 @@ public class WeaponDataSo : ScriptableObject
 
     public float ShakeDuration => _shakeDuration;
 
+    public ParticleSystem HitFx => _hitFx;
+
     [Header("Setup")]
     [SerializeField] private string _id;
     [Space(10)]
@@ -48,4 +50,5 @@ public class WeaponDataSo : ScriptableObject
     [SerializeField] private GameObject _weaponObject;
     [SerializeField] private string _displayName;
     [SerializeField] private Sprite _icon;
+    [SerializeField] private ParticleSystem _hitFx;
 }

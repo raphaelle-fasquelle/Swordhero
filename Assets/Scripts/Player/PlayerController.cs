@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using JetBrains.Annotations;
 using UnityEngine;
 
@@ -38,6 +39,7 @@ public class PlayerController : MonoBehaviour
     private EnemiesManager _enemiesManager;
     private TargetIndicator _targetIndicator;
     private CameraManager _cameraManager;
+    private WeaponDataSo _currentWeapon => GameManager.Instance.WeaponManager.CurrentWeapon;
     
     //INTERNAL PARAMETERS
     private float _movementCameraMultiplier;
@@ -45,9 +47,6 @@ public class PlayerController : MonoBehaviour
     private EnemyController _targetEnemy;
     private bool _isStriking;
     private Coroutine _attackCrt;
-    
-    //WEAPON SHORTCUTS
-    private WeaponDataSo _currentWeapon => GameManager.Instance.WeaponManager.CurrentWeapon;
 
     private bool _hasTarget => _targetEnemy != null;
     
@@ -178,6 +177,14 @@ public class PlayerController : MonoBehaviour
     {
         _targetEnemy.TakeDamage(_attackDamage);
         _cameraManager.DoShake(_currentWeapon.ShakeAmplitude,_currentWeapon.ShakeIntensity,_currentWeapon.ShakeDuration);
+        ParticleSystem fx = Instantiate(_currentWeapon.HitFx);
+        fx.transform.position = _targetEnemy.transform.position;
+        Sequence fxSeq = DOTween.Sequence();
+        fxSeq.AppendInterval(fx.main.duration);
+        fxSeq.AppendCallback(() =>
+        {
+            Destroy(fx.gameObject);
+        });
     }
 
     private void CancelAttack()
