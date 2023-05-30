@@ -13,6 +13,7 @@ public class EnemyController : MonoBehaviour
     [SerializeField] private Renderer _renderer;
     [SerializeField] private Material _blinkMaterial;
     [SerializeField] private float _damageBlinkDuration = .15f;
+    [SerializeField] private LifeGauge _lifeGauge;
 
     private EnemiesManager _enemiesManager;
     
@@ -38,6 +39,7 @@ public class EnemyController : MonoBehaviour
         transform.position = position;
         transform.localScale = Vector3.one;
         _currentLifePoints = _lifePoints;
+        _lifeGauge.ResetGauge();
     }
 
     public void TakeDamage(int damage)
@@ -50,6 +52,7 @@ public class EnemyController : MonoBehaviour
             _currentLifePoints = 0;
             Die();
         }
+        _lifeGauge.UpdateGauge((float)_currentLifePoints/_lifePoints);
     }
 
     public float SqrDistanceToPosition(Vector3 position)

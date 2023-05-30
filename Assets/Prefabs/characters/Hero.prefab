@@ -515,7 +515,7 @@ MonoBehaviour:
   _baseSpeed: 4.5
   _detectionRange: 3.2
   _detectionAngle: 150
-  _attackDamage: 4
+  _attackDamage: 100
   _animator: {fileID: 4278100186079492270}
   _playerWeapon: {fileID: 2566018110633546070}
 --- !u!114 &2566018110633546070

@@ -95,4 +95,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67d296e28b798874ab587ad96950a361, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _followOffset: 2
+  _followOffset: 2.5
