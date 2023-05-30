@@ -46,6 +46,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _lifePoints: 10
   _animator: {fileID: 6926839794853975167}
+  _renderer: {fileID: 6926839794849704639}
+  _blinkMaterial: {fileID: 2100000, guid: 72ca0467fe7f0864ebc31b1858ad19e2, type: 2}
+  _damageBlinkDuration: 0.15
 --- !u!1 &6926839794863368101
 GameObject:
   m_ObjectHideFlags: 0

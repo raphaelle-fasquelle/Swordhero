@@ -10,10 +10,17 @@ public class EnemyController : MonoBehaviour
     
     [SerializeField] private int _lifePoints;
     [SerializeField] private Animator _animator;
+    [SerializeField] private Renderer _renderer;
+    [SerializeField] private Material _blinkMaterial;
+    [SerializeField] private float _damageBlinkDuration = .15f;
 
     private EnemiesManager _enemiesManager;
     
     private int _currentLifePoints;
+
+    private Material _defaultMat;
+
+    private Sequence _blinkSeq;
     
     //ANIMATION KEYS
     private int _deathAnimationKey = Animator.StringToHash("Die");
@@ -22,6 +29,7 @@ public class EnemyController : MonoBehaviour
     public void Init(EnemiesManager enemiesManager)
     {
         _enemiesManager = enemiesManager;
+        _defaultMat = _renderer.sharedMaterial;
     }
 
     public void Spawn(Vector3 position)
@@ -30,6 +38,18 @@ public class EnemyController : MonoBehaviour
         transform.position = position;
         transform.localScale = Vector3.one;
         _currentLifePoints = _lifePoints;
+    }
+
+    public void TakeDamage(int damage)
+    {
+        _currentLifePoints -= damage;
+        Blink();
+        _animator.SetTrigger(_damageAnimationKey);
+        if (_currentLifePoints <= 0)
+        {
+            _currentLifePoints = 0;
+            Die();
+        }
     }
 
     public float SqrDistanceToPosition(Vector3 position)
@@ -42,15 +62,20 @@ public class EnemyController : MonoBehaviour
         return Vector3.Angle(coneDirection, transform.position - position) <= coneAngle / 2f;
     }
 
-    public void TakeDamage(int damage)
+    private void Blink()
     {
-        _currentLifePoints -= damage;
-        _animator.SetTrigger(_damageAnimationKey);
-        if (_currentLifePoints <= 0)
+        if (_blinkSeq != null)
         {
-            _currentLifePoints = 0;
-            Die();
+            _blinkSeq.Kill(true);
         }
+        _renderer.material = _blinkMaterial;
+        _blinkSeq = DOTween.Sequence();
+        _blinkSeq.AppendInterval(_damageBlinkDuration);
+        _blinkSeq.OnComplete(() =>
+        {
+            _renderer.material = _defaultMat;
+            _blinkSeq = null;
+        });
     }
 
     private void Die()
