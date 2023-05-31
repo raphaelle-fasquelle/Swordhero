@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Security.Cryptography;
@@ -9,7 +10,7 @@ public class FlyingText3d : MonoBehaviour
 {
     [SerializeField] private TextMeshPro _text;
 
-    public void DoFly(string value, Vector3 startPos, Color color)
+    public void DoFly(string value, Vector3 startPos, Color color, Action onComplete)
     {
         transform.position = startPos;
         _text.SetText(value);
@@ -22,9 +23,6 @@ public class FlyingText3d : MonoBehaviour
         flySequence.AppendInterval(.5f);
         flySequence.Append(_text.DOFade(0, .3f));
         flySequence.Join(transform.DOScale(0, .3f));
-        flySequence.OnComplete(() =>
-        {
-            Destroy(gameObject);
-        });
+        flySequence.OnComplete(onComplete.Invoke);
     }
 }

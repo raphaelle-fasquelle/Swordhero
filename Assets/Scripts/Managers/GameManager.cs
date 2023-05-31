@@ -14,8 +14,8 @@ public class GameManager : MonoBehaviour
     public EnemiesManager EnemiesManager => _enemiesManager;
     public TargetIndicator TargetIndicator => _targetIndicator;
     public WeaponManager WeaponManager => _weaponManager;
-
     public CameraManager CameraManager => _cameraManager;
+    public PoolManager PoolManager => _poolManager;
 
     [SerializeField] private VirtualJoystick _joystick;
     [SerializeField] private PlayerController _playerController;
@@ -24,6 +24,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private TargetIndicator _targetIndicator;
     [SerializeField] private WeaponManager _weaponManager;
     [SerializeField] private CameraManager _cameraManager;
+    [SerializeField] private PoolManager _poolManager;
 
     public void ResetGame()
     {

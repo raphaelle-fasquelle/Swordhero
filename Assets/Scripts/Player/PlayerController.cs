@@ -179,19 +179,22 @@ public class PlayerController : MonoBehaviour
     {
         bool isCrit = Random.Range(0f, 1f) < _critChance;
         int damage = _currentWeapon.Damage * (isCrit ? 2 : 1);
-        FlyingText3d damageFeedback = Instantiate(_damageFeedback);
+        FlyingText3d damageFeedback = (FlyingText3d)GameManager.Instance.PoolManager.GetPool(_damageFeedback).Pick();
         damageFeedback.DoFly("-" + damage
             , .5f * Random.insideUnitSphere + _targetEnemy.transform.position
-            , isCrit ? Color.red : Color.white);
+            , isCrit ? Color.red : Color.white,
+            () => GameManager.Instance.PoolManager.GetPool(_damageFeedback).ReturnToPool(damageFeedback));
         _targetEnemy.TakeDamage(damage);
         _cameraManager.DoShake(_currentWeapon.ShakeAmplitude,_currentWeapon.ShakeIntensity,_currentWeapon.ShakeDuration);
-        ParticleSystem fx = Instantiate(_currentWeapon.HitFx);
+        
+        ParticleSystem fx = (ParticleSystem)GameManager.Instance.PoolManager.GetPool(_currentWeapon.HitFx).Pick();
         fx.transform.position = _targetEnemy.transform.position;
+        fx.Play();
         Sequence fxSeq = DOTween.Sequence();
         fxSeq.AppendInterval(fx.main.duration);
         fxSeq.AppendCallback(() =>
         {
-            Destroy(fx.gameObject);
+            GameManager.Instance.PoolManager.GetPool(_currentWeapon.HitFx).ReturnToPool(fx);
         });
     }
 
