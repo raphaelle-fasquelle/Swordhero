@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using DG.Tweening;
 using JetBrains.Annotations;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 [SelectionBase]
 public class PlayerController : MonoBehaviour
@@ -27,11 +28,13 @@ public class PlayerController : MonoBehaviour
     [Header("Attack")]
     [SerializeField] private float _detectionRange;
     [SerializeField] private float _detectionAngle;
+    [SerializeField, Range(0f,1f)] private float _critChance;
     //LINKS
     [Space(10)]
     [Header("Links")]
     [SerializeField] private Animator _animator;
     [SerializeField] private PlayerWeapon _playerWeapon;
+    [SerializeField] private FlyingText3d _damageFeedback;
     
     //EXTERNAL LINKS
     private VirtualJoystick _joystick;
@@ -174,7 +177,13 @@ public class PlayerController : MonoBehaviour
 
     private void DoHit()
     {
-        _targetEnemy.TakeDamage(_currentWeapon.Damage);
+        bool isCrit = Random.Range(0f, 1f) < _critChance;
+        int damage = _currentWeapon.Damage * (isCrit ? 2 : 1);
+        FlyingText3d damageFeedback = Instantiate(_damageFeedback);
+        damageFeedback.DoFly("-" + damage
+            , .5f * Random.insideUnitSphere + _targetEnemy.transform.position
+            , isCrit ? Color.red : Color.white);
+        _targetEnemy.TakeDamage(damage);
         _cameraManager.DoShake(_currentWeapon.ShakeAmplitude,_currentWeapon.ShakeIntensity,_currentWeapon.ShakeDuration);
         ParticleSystem fx = Instantiate(_currentWeapon.HitFx);
         fx.transform.position = _targetEnemy.transform.position;

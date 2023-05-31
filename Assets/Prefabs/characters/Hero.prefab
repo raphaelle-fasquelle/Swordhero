@@ -515,9 +515,10 @@ MonoBehaviour:
   _baseSpeed: 4.5
   _detectionRange: 3.2
   _detectionAngle: 150
-  _attackDamage: 100
+  _critChance: 0.1
   _animator: {fileID: 4278100186079492270}
   _playerWeapon: {fileID: 2566018110633546070}
+  _damageFeedback: {fileID: 5693477099123401789, guid: b7378c67c21614444b3f92038633e55f, type: 3}
 --- !u!114 &2566018110633546070
 MonoBehaviour:
   m_ObjectHideFlags: 0
