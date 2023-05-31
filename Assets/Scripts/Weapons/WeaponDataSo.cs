@@ -17,6 +17,8 @@ public class WeaponDataSo : ScriptableObject
     
     public float AttackRange => _attackRange;
 
+    public int Damage => _damage;
+
     public GameObject WeaponObject => _weaponObject;
 
     public string DisplayName => _displayName;
@@ -40,6 +42,7 @@ public class WeaponDataSo : ScriptableObject
     [SerializeField] private float _attackSpeedMultiplier;
     [SerializeField] private float _movementSpeedMultiplier;
     [SerializeField] private float _attackRange;
+    [SerializeField] private int _damage;
     [Space(10)]
     [Header("Feedback Parameters")]
     [SerializeField] private float _shakeAmplitude;

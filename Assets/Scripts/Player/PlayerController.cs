@@ -27,7 +27,6 @@ public class PlayerController : MonoBehaviour
     [Header("Attack")]
     [SerializeField] private float _detectionRange;
     [SerializeField] private float _detectionAngle;
-    [SerializeField] private int _attackDamage;
     //LINKS
     [Space(10)]
     [Header("Links")]
@@ -175,7 +174,7 @@ public class PlayerController : MonoBehaviour
 
     private void DoHit()
     {
-        _targetEnemy.TakeDamage(_attackDamage);
+        _targetEnemy.TakeDamage(_currentWeapon.Damage);
         _cameraManager.DoShake(_currentWeapon.ShakeAmplitude,_currentWeapon.ShakeIntensity,_currentWeapon.ShakeDuration);
         ParticleSystem fx = Instantiate(_currentWeapon.HitFx);
         fx.transform.position = _targetEnemy.transform.position;

@@ -650,6 +650,7 @@ GameObject:
   - component: {fileID: 5996422154496971837}
   - component: {fileID: 1239816406329699682}
   - component: {fileID: 3476091126527666885}
+  - component: {fileID: 6743518313097927826}
   m_Layer: 0
   m_Name: LifeGauge
   m_TagString: Untagged
@@ -724,7 +725,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 0
+  m_PresetInfoIsWorld: 1
 --- !u!114 &1239816406329699682
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -757,3 +758,16 @@ MonoBehaviour:
   _currentLifeSlider: {fileID: 7747659385678459111}
   _animationSlider: {fileID: 5057490720913637921}
   _animationSpeed: 1
+  _canvasGroup: {fileID: 6743518313097927826}
+--- !u!225 &6743518313097927826
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8958285565424767155}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0

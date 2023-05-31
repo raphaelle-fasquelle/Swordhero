@@ -16,8 +16,9 @@ MonoBehaviour:
   _timingToHitEffect: 0.35
   _endAttackCooldown: 0.33
   _attackSpeedMultiplier: 1.5
-  _movementSpeedMultiplier: 1.2
+  _movementSpeedMultiplier: 1.5
   _attackRange: 2
+  _damage: 80
   _shakeAmplitude: 0.15
   _shakeIntensity: 20
   _shakeDuration: 0.2
