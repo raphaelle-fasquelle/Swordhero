@@ -34,15 +34,16 @@ public class WeaponDataSo : ScriptableObject
     public ParticleSystem HitFx => _hitFx;
 
     [Header("Setup")]
-    [SerializeField] private string _id;
+    [SerializeField] private string _id; //COULD HAVE BEEN USED TO SAVE LAST WEAPON USED AND START WITH IT INSTEAD OF RANDOM WEAPON
     [Space(10)]
-    [Header("Tweakables")]
-    [SerializeField] private float _timingToHitEffect;
-    [SerializeField] private float _endAttackCooldown;
+    [Header("Tweakables Gameplay")]
     [SerializeField] private float _attackSpeedMultiplier;
     [SerializeField] private float _movementSpeedMultiplier;
     [SerializeField] private float _attackRange;
     [SerializeField] private int _damage;
+    [Header("Tweakables Feedbacks")]
+    [SerializeField] private float _timingToHitEffect;
+    [SerializeField] private float _endAttackCooldown;
     [Space(10)]
     [Header("Feedback Parameters")]
     [SerializeField] private float _shakeAmplitude;

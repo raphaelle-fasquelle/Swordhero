@@ -8,11 +8,14 @@ public class EnemyController : MonoBehaviour
 {
     public bool IsAlive => _currentLifePoints > 0;
     
+    //PARAMETERS
     [SerializeField] private int _lifePoints;
+    //FEEDBACKS
+    [SerializeField] private float _damageBlinkDuration = .15f;
+    //LINKS
     [SerializeField] private Animator _animator;
     [SerializeField] private Renderer _renderer;
     [SerializeField] private Material _blinkMaterial;
-    [SerializeField] private float _damageBlinkDuration = .15f;
     [SerializeField] private LifeGauge _lifeGauge;
 
     private EnemiesManager _enemiesManager;

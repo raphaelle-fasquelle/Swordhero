@@ -4,6 +4,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+/// <summary>
+/// Only instance in the project, holds other manager's references + handles Initialization
+/// </summary>
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
@@ -26,6 +29,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] private CameraManager _cameraManager;
     [SerializeField] private PoolManager _poolManager;
 
+    /// <summary>
+    /// Reset Game for debug purposes
+    /// </summary>
     public void ResetGame()
     {
         SceneManager.LoadScene(0);

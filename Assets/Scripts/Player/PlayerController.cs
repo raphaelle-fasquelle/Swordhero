@@ -9,8 +9,6 @@ using Random = UnityEngine.Random;
 [SelectionBase]
 public class PlayerController : MonoBehaviour
 {
-    public PlayerWeapon PlayerWeapon => _playerWeapon;
-
     private enum PlayerState
     {
         Idle,
@@ -63,6 +61,8 @@ public class PlayerController : MonoBehaviour
         _targetIndicator = GameManager.Instance.TargetIndicator;
         _cameraManager = GameManager.Instance.CameraManager;
         _movementCameraMultiplier = GameManager.Instance.Camera.transform.forward.z > 0 ? 1 : -1;
+
+        _playerWeapon.Init();
 
         _currentState = PlayerState.Idle;
     }
@@ -133,28 +133,28 @@ public class PlayerController : MonoBehaviour
 
     private void UpdateAttack()
     {
-        if(_isStriking) return;
         if (!_targetEnemy.IsAlive)
         {
             _targetIndicator.Disable();
             _targetEnemy = null;
             UpdateState(PlayerState.Idle);
+            return;
         }
-        else
+        
+        if(_isStriking) return;
+        
+        Vector3 direction = (_targetEnemy.transform.position - transform.position).normalized;
+        transform.forward = Vector3.RotateTowards(transform.forward,direction, _rotationSpeed * Time.deltaTime, 1);
+        if (IsInRange(_targetEnemy.transform.position, _currentWeapon.AttackRange))
         {
-            Vector3 direction = (_targetEnemy.transform.position - transform.position).normalized;
-            transform.forward = Vector3.RotateTowards(transform.forward,direction, _rotationSpeed * Time.deltaTime, 1);
-            if (IsInRange(_targetEnemy.transform.position, _currentWeapon.AttackRange))
-            {
-                DealAttack();
-            }
-            else
-            {
-                _animator.SetBool(_moveAnimationKey, true);
-                transform.position = Vector3.MoveTowards(transform.position
-                    , _targetEnemy.transform.position - 1f * direction,
-                    Time.deltaTime * _baseSpeed * _currentWeapon.MovementSpeedMultiplier);
-            }
+            DealAttack();
+        }
+        else //NOT USED RIGHT NOW, USED IN A PREVIOUS VERSION WHERE THERE WAS A DETECTION RANGE IN ADDITION TO THE ATTACK RANGE
+        {
+            _animator.SetBool(_moveAnimationKey, true);
+            transform.position = Vector3.MoveTowards(transform.position
+                , _targetEnemy.transform.position - 1f * direction,
+                Time.deltaTime * _baseSpeed * _currentWeapon.MovementSpeedMultiplier);
         }
     }
 
@@ -177,14 +177,20 @@ public class PlayerController : MonoBehaviour
 
     private void DoHit()
     {
-        bool isCrit = Random.Range(0f, 1f) < _critChance;
-        int damage = _currentWeapon.Damage * (isCrit ? 2 : 1);
-        FlyingText3d damageFeedback = (FlyingText3d)GameManager.Instance.PoolManager.GetPool(_damageFeedback).Pick();
-        damageFeedback.DoFly("-" + damage
-            , .5f * Random.insideUnitSphere + _targetEnemy.transform.position
-            , isCrit ? Color.red : Color.white,
-            () => GameManager.Instance.PoolManager.GetPool(_damageFeedback).ReturnToPool(damageFeedback));
+        bool isCriticalHit = Random.Range(0f, 1f) < _critChance;
+        int damage = _currentWeapon.Damage * (isCriticalHit ? 2 : 1);
+        
         _targetEnemy.TakeDamage(damage);
+        DoHitFeedbacks(damage, isCriticalHit);
+    }
+
+    private void DoHitFeedbacks(int damage, bool isCriticalHit)
+    {
+        FlyingText3d damageFeedback = (FlyingText3d)GameManager.Instance.PoolManager.GetPool(_damageFeedback).Pick();
+        damageFeedback.DoFly("-" + damage, .5f * Random.insideUnitSphere + _targetEnemy.transform.position
+            , isCriticalHit ? Color.red : Color.white
+            , () => GameManager.Instance.PoolManager.GetPool(_damageFeedback).ReturnToPool(damageFeedback));
+        
         _cameraManager.DoShake(_currentWeapon.ShakeAmplitude,_currentWeapon.ShakeIntensity,_currentWeapon.ShakeDuration);
         
         ParticleSystem fx = (ParticleSystem)GameManager.Instance.PoolManager.GetPool(_currentWeapon.HitFx).Pick();
@@ -233,7 +239,6 @@ public class PlayerController : MonoBehaviour
 
     private void SetAnimatorSpeed(float speed)
     {
-        Debug.Log("Change animator speed to "+speed);
         _animator.speed = speed;
     }
 

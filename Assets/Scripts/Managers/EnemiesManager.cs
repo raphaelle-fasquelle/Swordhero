@@ -54,7 +54,20 @@ public class EnemiesManager : MonoBehaviour
         return closestEnemy;
     }
 
+    public void ReturnToPool(EnemyController enemy)
+    {
+        enemy.gameObject.SetActive(false);
+        _enemiesInPool.Enqueue(enemy);
+        _enemiesSpawned.Remove(enemy);
+        enemy.transform.parent = _enemiesInPoolParent;
+    }
+
     private void Update()
+    {
+        CheckEnemySpawn();
+    }
+
+    private void CheckEnemySpawn()
     {
         if (Time.time - _lastSpawnTime >= _enemiesSpawnDelay)
         {
@@ -83,13 +96,5 @@ public class EnemiesManager : MonoBehaviour
         EnemyController enemyController = Instantiate(_enemyPrefab, transform);
         enemyController.Init(this);
         return enemyController;
-    }
-
-    public void ReturnToPool(EnemyController enemy)
-    {
-        enemy.gameObject.SetActive(false);
-        _enemiesInPool.Enqueue(enemy);
-        _enemiesSpawned.Remove(enemy);
-        enemy.transform.parent = _enemiesInPoolParent;
     }
 }
