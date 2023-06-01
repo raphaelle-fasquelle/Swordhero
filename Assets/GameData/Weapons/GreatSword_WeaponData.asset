@@ -17,7 +17,7 @@ MonoBehaviour:
   _endAttackCooldown: 0.5
   _attackSpeedMultiplier: 1
   _movementSpeedMultiplier: 0.9
-  _attackRange: 2.5
+  _attackRange: 3.5
   _damage: 110
   _shakeAmplitude: 0.2
   _shakeIntensity: 25
