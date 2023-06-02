@@ -13,19 +13,20 @@
   - Critical hits
   - Replacing floor texture for better contrast
 ## Difficulties
-The main difficulty I encountered was wrapping my head around the idea of auto attacking while dealing melee damage (instead of high range damage like in Archero).
-<br>
-When I started the project, I used a detection range, to determine whether the player had a target, and an attack range
+- The main difficulty I encountered was wrapping my head around the idea of auto attacking while dealing melee damage (instead of high range damage like in Archero).
+<br>When I started the project, I used a detection range, to determine whether the player had a target, and an attack range
 for the player to actually attack. This resulted in a very idle game : you got close to a group
 of enemies, released the joystick, and just watched your character attack.
-<br>
-I didn't think this was very satisfying, so I decided to actually remove to detection range, and use only the attach range
+<br>I didn't think this was very satisfying, so I decided to actually remove to detection range, and use only the attack range
 to determine if the player has a target.
-<br>
-I think the result is much better this way, but it means I lost some time developing the behavior for the player when they have to go
+<br>I think the result is much better this way, but it means I lost some time developing the behavior for the player when they have to go
 to a target that is in detection range but not in attack range.
-<br> However, the game could work in a more "passive" way, where you could watch your character defeat enemies and only choose to activate skills at some time or chose upgrades when leveling up (like in [Nonstop Knight](https://play.google.com/store/apps/details?id=com.koplagames.kopla01&hl=fr&gl=US)
-## Could be done differently
+<br> However, the game could work in a more "passive" way, where you could watch your character defeat enemies and only choose to activate skills
+at some time or chose upgrades when leveling up (like in [Nonstop Knight](https://play.google.com/store/apps/details?id=com.koplagames.kopla01&hl=fr&gl=US)).
+<br>
+<br>
+- Another difficulty was getting the feeling of the different weapons right. Making them all nice to play, but different enough.
+<br>That's why I added other differences between weapons : feedbacks (camera shake, fxs) and damage.
 ## Improvement ideas
 #### Gameplay
 - I would have liked to add behaviors for the enemies, to add a dodge phase, dividing the gameplay between attacking and dodging.
