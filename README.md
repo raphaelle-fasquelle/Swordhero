@@ -28,6 +28,8 @@ at some time or chose upgrades when leveling up (like in [Nonstop Knight](https:
 
 ## Improvement ideas
 #### Gameplay
+- The Control could be improved if I added some complexity: using a cone range when the player handles the character movement, but a circular range when the
+joystick is released to let the character handle attacks on its own (when the character is surrounded by enemies for example).
 - I would have liked to add behaviors for the enemies, to add a dodge phase, dividing the gameplay between attacking and dodging.
 - I would have also liked adding some obstacles. I had thought about that from the beginning, which is why I added the NavMesh package to the project.
 - I think it would add a lot of dynamism to the game to add different attack animations, that we could play when attacking the same enemy to give a combo effect.
