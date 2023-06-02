@@ -27,6 +27,7 @@ at some time or chose upgrades when leveling up (like in [Nonstop Knight](https:
 <br>
 - Another difficulty was getting the feeling of the different weapons right. Making them all nice to play, but different enough.
 <br>That's why I added other differences between weapons : feedbacks (camera shake, fxs) and damage.
+
 ## Improvement ideas
 #### Gameplay
 - I would have liked to add behaviors for the enemies, to add a dodge phase, dividing the gameplay between attacking and dodging.
