@@ -24,7 +24,6 @@ to a target that is in detection range but not in attack range.
 <br> However, the game could work in a more "passive" way, where you could watch your character defeat enemies and only choose to activate skills
 at some time or chose upgrades when leveling up (like in [Nonstop Knight](https://play.google.com/store/apps/details?id=com.koplagames.kopla01&hl=fr&gl=US)).
 <br>
-<br>
 - Another difficulty was getting the feeling of the different weapons right. Making them all nice to play, but different enough.
 <br>That's why I added other differences between weapons : feedbacks (camera shake, fxs) and damage.
 
